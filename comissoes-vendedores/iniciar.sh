@@ -10,9 +10,9 @@ if ! command -v node >/dev/null 2>&1; then
   exit 1
 fi
 
-versao_node="$(node -p 'process.versions.node.split(".")[0]')"
-if [ "$versao_node" -lt 20 ]; then
-  echo "[ERRO] Node.js $versao_node encontrado, mas o projeto precisa da versao 20 ou superior."
+# o Vite 7 exige 20.19+ ou 22.12+; versoes 20.0 a 20.18 quebram no build
+if ! node -e 'const [a,b]=process.versions.node.split(".").map(Number); process.exit((a===20&&b>=19)||a>=21?0:1)'; then
+  echo "[ERRO] Node.js $(node -v) encontrado, mas o projeto precisa da versao 20.19+ ou 22.12+."
   exit 1
 fi
 

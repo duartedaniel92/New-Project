@@ -17,7 +17,7 @@ A aplicação resolve isso com: cálculo automático da comissão em cascata por
 | Camada    | Tecnologia                                                                 |
 | --------- | -------------------------------------------------------------------------- |
 | Frontend  | React 19 + Vite 7, gráficos com Recharts 3                                 |
-| Backend   | Node.js 20+ e Express 5 (API REST)                                         |
+| Backend   | Node.js 20.19+ e Express 5 (API REST)                                      |
 | Dados     | Em memória (`seed.js`) — pronto para trocar por PostgreSQL/MySQL           |
 | Estilo    | CSS puro (design system próprio, sem framework de UI)                      |
 | Qualidade | ESLint 9 (flat config), Prettier, Node Test Runner, Vitest, GitHub Actions |
@@ -72,7 +72,7 @@ comissoes-vendedores/
 
 ## Como rodar o projeto
 
-Pré-requisito: **Node.js 20 ou superior** (a versão usada no desenvolvimento está no `.nvmrc`).
+Pré-requisito: **Node.js 20.19+ ou 22.12+** (é o que o Vite 7 exige; a versão usada no desenvolvimento está no `.nvmrc`).
 
 ### Opção rápida (Windows) — recomendada para o dia a dia da loja
 
@@ -187,6 +187,8 @@ npm run test:frontend   # só a interface
 ```
 
 O backend usa o test runner nativo do Node (sem biblioteca extra); o frontend usa Vitest + Testing Library.
+
+> O script do backend é `node --test` sem argumento, deixando a descoberta dos arquivos por conta do runner. Passar `"tests/**/*.test.mjs"` só funciona no Node 22+ (o Node 20 não expande o glob) e no Windows, onde o shell também não expande.
 
 O que está coberto:
 
