@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR, en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Conversor de moedas online: converta Reais para Dólar, Euro ou Bitcoin usando cotações atualizadas em tempo real." />
+    <meta name="theme-color" content="#0B6BC2" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="./assets/bra.png" type="image/png" />
     <title>CodeClub Convert Money</title>
+    <script src="./scripts.js" defer></script>
 </head>
-
 
 <body>
     <div class="container">
@@ -20,56 +24,59 @@
         </header>
 
         <main>
-            <label>
-                Coverter <b>de</b>
-                <select>
-                    <option>
-                        R$ Real Brasileiro
-                    </option>
+            <label for="from-currency-select">
+                Converter <b>de</b>
+                <select id="from-currency-select" disabled
+                    title="No momento a conversão parte sempre do Real Brasileiro">
+                    <option value="BRL">R$ Real Brasileiro</option>
                 </select>
             </label>
 
-            <label>
-                Coverter <b>para</b>
+            <label for="currency-select">
+                Converter <b>para</b>
                 <select id="currency-select">
-                    <option>
-                        US$ Dólar Americano
-                    </option>
-                    <option>
-                        € Euro
-                    </option>
+                    <option value="USD">US$ Dólar Americano</option>
+                    <option value="EUR">€ Euro</option>
+                    <option value="BTC">₿ Bitcoin</option>
                 </select>
             </label>
-            <label>
+
+            <label for="input-real">
                 Valor
-                <input id="input-real" placeholder="Digite Um Valor em Reais R$" type="number" />
+                <input id="input-real" placeholder="Digite um valor em Reais R$" type="number" min="0" step="0.01"
+                    inputmode="decimal" />
             </label>
 
             <button id="convert-button" type="button">Converter</button>
 
-            <section>
+            <p id="error-message" class="error-message" role="alert" hidden></p>
+
+            <section aria-live="polite" aria-busy="false" id="result">
                 <div class="currency-container">
-                    <img class="currency-img" src="./assets/bra.png" alt="Bandeira do Brasil" />
+                    <img class="currency-img" src="./assets/bra.png" width="512" height="512"
+                        alt="Bandeira do Brasil" />
                     <p class="currency-name">Real</p>
-                    <p id="real-value-text" class="currency-value">R$0,00</p>
+                    <p id="real-value-text" class="currency-value">R$&nbsp;0,00</p>
                 </div>
 
-                <img class="arrow-img" src="./assets/Vector.png" alt="Seta de conversão" />
+                <img class="arrow-img" src="./assets/Vector.png"
+                    srcset="./assets/Vector.png 1x, ./assets/Vector@2x.png 2x, ./assets/Vector@3x.png 3x" width="35"
+                    height="50" alt="" aria-hidden="true" />
 
                 <div class="currency-container">
-                    <img id="currency-img" class="currency-img" src="./assets/eua.png"
-                        alt="Bandeira do Estados Unidos" />
+                    <img id="currency-img" class="currency-img" src="./assets/eua.png" width="64" height="64"
+                        alt="Bandeira dos Estados Unidos" />
                     <p class="currency-name" id="currency-name">Dólar Americano</p>
-                    <p id="currency-value-text" class="currency-value">US$0,00</p>
+                    <p id="currency-value-text" class="currency-value">$0.00</p>
                 </div>
             </section>
         </main>
 
-
+        <footer>
+            <p>Cotações fornecidas pela <a href="https://docs.awesomeapi.com.br/api-de-moedas"
+                    target="_blank" rel="noopener noreferrer">AwesomeAPI</a>.</p>
+        </footer>
     </div>
-
 </body>
-
-<script src="./scripts.js"></script>
 
 </html>

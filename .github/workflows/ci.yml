@@ -9,14 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    # o projeto vive em uma subpasta deste repositório
-    working-directory: comissoes-vendedores
-
 jobs:
   verificar:
-    name: Lint, testes e build
+    name: Sintaxe e testes
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,22 +27,23 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
-          cache-dependency-path: comissoes-vendedores/package-lock.json
 
       - name: Instalar dependências
         run: npm ci
 
-      - name: Verificar formatação
-        run: npm run format:check
+      - name: Verificar sintaxe
+        run: npm run check:syntax
 
-      - name: Lint
-        run: npm run lint
+      - name: Instalar o Chromium
+        run: npx playwright install --with-deps chromium
 
-      - name: Testes do backend
-        run: npm run test:backend
+      - name: Testes de navegador
+        run: npm test
 
-      - name: Testes do frontend
-        run: npm run test:frontend
-
-      - name: Build do frontend
-        run: npm run build
+      - name: Guardar o relatório em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-node${{ matrix.node }}
+          path: playwright-report/
+          retention-days: 7

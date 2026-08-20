@@ -1,35 +1,52 @@
+:root {
+    /* Azul escurecido de #1B83E2 para #0B6BC2: garante 4.9:1 de contraste
+       com o texto claro, atendendo ao WCAG AA em textos normais. */
+    --brand: #0B6BC2;
+    --brand-border: #1B83E2;
+    --surface: #F4F4F4;
+    --page-bg: #E5E5E5;
+    --field-bg: #FFFFFF;
+    --field-border: #BBBBBB;
+    --text-muted: #5C5C5C;
+    --text-on-brand: #F4F4F4;
+    --danger: #B3261E;
+    --radius: 4px;
+    --shadow-field: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'roboto', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 18px;
 }
 
 body {
-    background-color: #E5E5E5;
+    background-color: var(--page-bg);
+    font-family: 'Roboto', system-ui, sans-serif;
+    line-height: 1.5;
+    padding: 16px;
 }
 
 .container {
-    width: 375px;
-    height: 766px;
-    background-color: #F4F4F4;
-    margin: 0 auto;
-    margin-top: 100px;
+    width: 100%;
+    max-width: 375px;
+    background-color: var(--surface);
+    margin: clamp(24px, 8vw, 100px) auto 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 header {
-    background-color: #1B83E2;
-    height: 66px;
+    background-color: var(--brand);
+    padding: 20px 16px;
 }
 
 h1 {
     font-size: 24px;
-    color: #F4F4F4;
+    color: var(--text-on-brand);
     text-align: center;
-    padding: 25px;
+    line-height: 1.2;
 }
 
 main {
@@ -38,64 +55,103 @@ main {
 
 label {
     font-size: 14px;
-    color: #777777;
-}
-
-select {
-    height: 48px;
-    width: 100%;
-    background: #FFFFFF;
-    border: 1px solid #BBBBBB;
-    border-radius: 4px;
+    color: var(--text-muted);
     display: block;
-    cursor: pointer;
-    outline: none;
-    appearance: none;
-    padding-left: 16px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-    margin-top: 6px;
-    margin-bottom: 24px;
 }
 
+select,
 input {
     height: 48px;
     width: 100%;
-    background: #FFFFFF;
-    border: 1px solid #BBBBBB;
-    border-radius: 4px;
+    background-color: var(--field-bg);
+    border: 1px solid var(--field-border);
+    border-radius: var(--radius);
     display: block;
-    outline: none;
     padding-left: 16px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-field);
+    margin-top: 6px;
+    color: #1A1A1A;
+    font-family: inherit;
+}
+
+select {
+    cursor: pointer;
+    margin-bottom: 24px;
+    font-size: 16px;
+    /* appearance:none remove a seta nativa, então desenhamos a nossa —
+       sem isso o select fica indistinguível de um campo de texto. */
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235C5C5C' d='M1.41 0 6 4.59 10.59 0 12 1.42 6 7.42 0 1.42z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+select:disabled {
+    cursor: default;
+    background-color: #EDEDED;
+    color: var(--text-muted);
+    background-image: none;
+    opacity: 1;
+}
+
+input {
     font-size: 18px;
 }
 
+/* Foco visível: substitui o `outline: none` original, que deixava quem
+   navega por teclado sem qualquer indicação de posição (WCAG 2.4.7). */
+select:focus-visible,
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 2px;
+}
+
 button {
-    background: #1B83E2;
+    background: var(--brand);
     border-radius: 25px;
     height: 48px;
     cursor: pointer;
-    color: #F4F4F4;
+    color: var(--text-on-brand);
     font-weight: bold;
     font-size: 16px;
+    font-family: inherit;
     border: none;
     width: 100%;
     margin-top: 24px;
-    margin-bottom: 36px;
+    margin-bottom: 24px;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     opacity: 0.9;
 }
 
-button:active {
+button:active:not(:disabled) {
     opacity: 0.7;
 }
 
-section {
-    border: 1px solid #1B83E2;
-    border-radius: 4px;
+button:disabled {
+    cursor: progress;
+    opacity: 0.6;
+}
 
+.error-message {
+    color: var(--danger);
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.error-message[hidden] {
+    display: none;
+}
+
+section {
+    border: 1px solid var(--brand-border);
+    border-radius: var(--radius);
+    padding: 8px 0;
 }
 
 .currency-container {
@@ -106,20 +162,33 @@ section {
 .currency-img {
     height: 44px;
     width: 44px;
+    object-fit: contain;
 }
 
 .currency-name {
     font-size: 14px;
-    color: #777777;
+    color: var(--text-muted);
 }
 
 .currency-value {
-    color: #1B83E2;
+    color: var(--brand);
     font-weight: bold;
     font-size: 20px;
+    word-break: break-word;
 }
 
 .arrow-img {
     margin: 15px auto;
     display: block;
+}
+
+footer {
+    padding: 0 24px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+footer a {
+    color: var(--brand);
 }
