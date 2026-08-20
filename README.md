@@ -4,6 +4,8 @@ Conversor de moedas em HTML, CSS e JavaScript puro (sem dependências e sem buil
 Converte um valor em Reais para **Dólar Americano**, **Euro** ou **Bitcoin** usando
 cotações em tempo real da [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas).
 
+**[Ver o site ao vivo »](https://duartedaniel92.github.io/New-Project/)**
+
 ## Como rodar
 
 O projeto é 100% estático — basta abrir o `index.html` no navegador.
@@ -19,6 +21,20 @@ npx serve .
 ```
 
 Depois acesse `http://localhost:8000`.
+
+## Deploy (GitHub Pages)
+
+O site é estático e o `index.html` está na raiz, então o Pages publica direto da
+branch, sem workflow. Para ativar, em `Settings` → `Pages`:
+
+| Campo | Valor |
+| --- | --- |
+| Source | Deploy from a branch |
+| Branch | `main` |
+| Folder | `/ (root)` |
+
+Todos os caminhos do projeto são relativos (`./assets/...`), então o site também
+funciona servido em subpasta, que é como o Pages o publica.
 
 ## Estrutura
 
@@ -64,7 +80,6 @@ A URL da API e todo o restante se ajustam sozinhos.
 
 - Conversão bidirecional (o seletor "Converter de" ainda é fixo em Real).
 - Testes automatizados da função de conversão.
-- Deploy contínuo no GitHub Pages.
 
 ## Créditos
 
