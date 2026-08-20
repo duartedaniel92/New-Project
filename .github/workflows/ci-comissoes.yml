@@ -1,0 +1,53 @@
+name: CI (Comissões Vendedores)
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    # o projeto vive em uma subpasta deste repositório
+    working-directory: comissoes-vendedores
+
+jobs:
+  verificar:
+    name: Comissões — lint, testes e build
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Preparar Node ${{ matrix.node }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: comissoes-vendedores/package-lock.json
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Verificar formatação
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Testes do backend
+        run: npm run test:backend
+
+      - name: Testes do frontend
+        run: npm run test:frontend
+
+      - name: Build do frontend
+        run: npm run build

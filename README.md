@@ -7,6 +7,11 @@ cotações em tempo real da [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-m
 
 **[Ver o site ao vivo »](https://duartedaniel92.github.io/New-Project/)**
 
+> **Também neste repositório:** a pasta
+> [`comissoes-vendedores/`](./comissoes-vendedores/) traz uma plataforma de
+> controle de comissões de vendedores (React + Express), com README, testes e CI
+> próprios. Os dois projetos são independentes — nada aqui depende dela.
+
 ## Como rodar
 
 O projeto é 100% estático — basta abrir o `index.html` no navegador.
@@ -82,7 +87,9 @@ O Playwright é uma `devDependency`: serve para rodar os testes e **não** faz p
 do que vai para o ar. O site continua sendo apenas HTML, CSS e JS.
 
 O CI (`.github/workflows/ci.yml`) executa a verificação de sintaxe e a suíte em
-Node 20 e 22 a cada push e pull request.
+Node 20 e 22 a cada push e pull request. O projeto da pasta
+`comissoes-vendedores/` tem o seu próprio workflow, em
+`.github/workflows/ci-comissoes.yml`.
 
 ## Decisões técnicas
 
