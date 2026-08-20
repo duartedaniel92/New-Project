@@ -1,6 +1,7 @@
 # CodeClub Convert Money
 
-Conversor de moedas em HTML, CSS e JavaScript puro (sem dependências e sem build).
+Conversor de moedas em HTML, CSS e JavaScript puro. O site não tem dependências
+nem etapa de build — o que é publicado são os arquivos do repositório, como estão.
 Converte um valor em Reais para **Dólar Americano**, **Euro** ou **Bitcoin** usando
 cotações em tempo real da [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas).
 
@@ -42,7 +43,8 @@ funciona servido em subpasta, que é como o Pages o publica.
 ├── index.html      # marcação da página
 ├── styles.css      # estilos (design tokens em :root)
 ├── scripts.js      # busca das cotações e lógica de conversão
-└── assets/         # bandeiras e ícones
+├── assets/         # bandeiras e ícones
+└── tests/          # suíte Playwright + servidor estático usado por ela
 ```
 
 ## Como adicionar uma nova moeda
@@ -65,6 +67,23 @@ A lógica é orientada a dados: não há `if` por moeda. Para incluir mais uma:
 
 A URL da API e todo o restante se ajustam sozinhos.
 
+## Testes
+
+A suíte roda a página real no Chromium e cobre a conversão das três moedas, o
+cache de cotações, os caminhos de erro e o layout em telas pequenas.
+
+```bash
+npm ci
+npx playwright install --with-deps chromium
+npm test
+```
+
+O Playwright é uma `devDependency`: serve para rodar os testes e **não** faz parte
+do que vai para o ar. O site continua sendo apenas HTML, CSS e JS.
+
+O CI (`.github/workflows/ci.yml`) executa a verificação de sintaxe e a suíte em
+Node 20 e 22 a cada push e pull request.
+
 ## Decisões técnicas
 
 - **Cotação `bid`, não `high`** — `high` é a maior cotação do dia; `bid` é a cotação
@@ -79,7 +98,6 @@ A URL da API e todo o restante se ajustam sozinhos.
 ## Próximos passos
 
 - Conversão bidirecional (o seletor "Converter de" ainda é fixo em Real).
-- Testes automatizados da função de conversão.
 
 ## Créditos
 

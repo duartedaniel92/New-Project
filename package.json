@@ -1,0 +1,16 @@
+{
+    "name": "codeclub-convert-money",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Conversor de moedas em HTML, CSS e JavaScript puro.",
+    "license": "MIT",
+    "type": "module",
+    "scripts": {
+        "start": "node tests/server.mjs",
+        "check:syntax": "node --check scripts.js",
+        "test": "playwright test"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.56.0"
+    }
+}
