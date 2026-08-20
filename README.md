@@ -70,3 +70,7 @@ A URL da API e todo o restante se ajustam sozinhos.
 
 Projeto baseado na aula de conversor de moedas do CodeClub, com melhorias de
 correção, acessibilidade e responsividade.
+
+## Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para o texto completo.
